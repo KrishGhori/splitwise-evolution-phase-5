@@ -15,6 +15,7 @@ import { Route as AuthRouteImport } from './routes/auth'
 import { Route as FriendsRouteImport } from './routes/friends'
 import { Route as ProfileRouteImport } from './routes/profile'
 import { Route as GroupsIndexRouteImport } from './routes/groups.index'
+import { Route as GroupsGroupNameRouteImport } from './routes/groups.$groupName'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -46,6 +47,11 @@ const GroupsIndexRoute = GroupsIndexRouteImport.update({
   path: '/groups/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const GroupsGroupNameRoute = GroupsGroupNameRouteImport.update({
+  id: '/groups/$groupName',
+  path: '/groups/$groupName',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -53,6 +59,7 @@ export interface FileRoutesByFullPath {
   '/auth': typeof AuthRoute
   '/friends': typeof FriendsRoute
   '/profile': typeof ProfileRoute
+  '/groups/$groupName': typeof GroupsGroupNameRoute
   '/groups/': typeof GroupsIndexRoute
 }
 export interface FileRoutesByTo {
@@ -61,6 +68,7 @@ export interface FileRoutesByTo {
   '/auth': typeof AuthRoute
   '/friends': typeof FriendsRoute
   '/profile': typeof ProfileRoute
+  '/groups/$groupName': typeof GroupsGroupNameRoute
   '/groups': typeof GroupsIndexRoute
 }
 export interface FileRoutesById {
@@ -70,13 +78,28 @@ export interface FileRoutesById {
   '/auth': typeof AuthRoute
   '/friends': typeof FriendsRoute
   '/profile': typeof ProfileRoute
+  '/groups/$groupName': typeof GroupsGroupNameRoute
   '/groups/': typeof GroupsIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/activity' | '/auth' | '/friends' | '/profile' | '/groups/'
+  fullPaths:
+    | '/'
+    | '/activity'
+    | '/auth'
+    | '/friends'
+    | '/profile'
+    | '/groups/$groupName'
+    | '/groups/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/activity' | '/auth' | '/friends' | '/profile' | '/groups'
+  to:
+    | '/'
+    | '/activity'
+    | '/auth'
+    | '/friends'
+    | '/profile'
+    | '/groups/$groupName'
+    | '/groups'
   id:
     | '__root__'
     | '/'
@@ -84,6 +107,7 @@ export interface FileRouteTypes {
     | '/auth'
     | '/friends'
     | '/profile'
+    | '/groups/$groupName'
     | '/groups/'
   fileRoutesById: FileRoutesById
 }
@@ -93,6 +117,7 @@ export interface RootRouteChildren {
   AuthRoute: typeof AuthRoute
   FriendsRoute: typeof FriendsRoute
   ProfileRoute: typeof ProfileRoute
+  GroupsGroupNameRoute: typeof GroupsGroupNameRoute
   GroupsIndexRoute: typeof GroupsIndexRoute
 }
 
@@ -140,6 +165,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof GroupsIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/groups/$groupName': {
+      id: '/groups/$groupName'
+      path: '/groups/$groupName'
+      fullPath: '/groups/$groupName'
+      preLoaderRoute: typeof GroupsGroupNameRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -149,6 +181,7 @@ const rootRouteChildren: RootRouteChildren = {
   AuthRoute: AuthRoute,
   FriendsRoute: FriendsRoute,
   ProfileRoute: ProfileRoute,
+  GroupsGroupNameRoute: GroupsGroupNameRoute,
   GroupsIndexRoute: GroupsIndexRoute,
 }
 export const routeTree = rootRouteImport
