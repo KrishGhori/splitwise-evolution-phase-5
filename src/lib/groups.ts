@@ -121,8 +121,8 @@ export async function getGroupBalances(name: string): Promise<Record<string, num
 
 export async function updateGroup(input: {
   group_name: string;
-  new_group_name?: string;
-  group_description?: string;
+  new_group_name?: string | undefined;
+  group_description?: string | undefined;
 }) {
   if (DEMO_MODE) {
     await wait();

@@ -105,8 +105,8 @@ export function areFriends(db: DemoDB, a: string, b: string) {
 export function groupBalances(g: DemoGroupRow): Record<string, number> {
   const bal: Record<string, number> = Object.fromEntries(g.groupmember.map((m) => [m, 0]));
   for (const e of g.expenses) {
-    if (e.paid_by_name in bal) bal[e.paid_by_name] += e.amount;
-    for (const [m, s] of Object.entries(e.split_details)) if (m in bal) bal[m] -= s;
+    if (e.paid_by_name in bal) bal[e.paid_by_name] = (bal[e.paid_by_name] ?? 0) + e.amount;
+    for (const [m, s] of Object.entries(e.split_details)) if (m in bal) bal[m] = (bal[m] ?? 0) - s;
   }
   return bal;
 }
