@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { AppShell } from "@/components/layout/AppShell";
-import { useState } from "react";
+import { useState, type FormEvent } from "react";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
 import { Check, Search, UserMinus, UserPlus, X } from "lucide-react";
@@ -52,7 +52,7 @@ function FriendsPage() {
     qc.invalidateQueries({ queryKey: ["incoming"] });
   };
 
-  const doSearch = async (e: React.FormEvent) => {
+  const doSearch = async (e: FormEvent) => {
     e.preventDefault();
     if (!q.trim()) return;
     setSearching(true);

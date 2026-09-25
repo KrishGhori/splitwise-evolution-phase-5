@@ -5,7 +5,7 @@ import { AppShell } from "@/components/layout/AppShell";
 import { Button } from "@/components/ui/button";
 import { demoGroups, formatMoney } from "@/lib/demo-data";
 
-export const Route = createFileRoute("/groups")({
+export const Route = createFileRoute("/groups/")({
   head: () => ({
     meta: [
       { title: "Groups — Splitly" },
